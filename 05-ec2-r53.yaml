@@ -55,4 +55,4 @@
       value: "{{ item.instances[0].public_ip_address }}"
       overwrite: true
     loop: "{{ ec2_instances.results }}"
-    when: ec2_insatnces.results.item == "frontend"
+    when: item.item == "frontend"
