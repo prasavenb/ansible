@@ -1,0 +1,12 @@
+- name: install mysql and postfix, uninstall nginx
+  hosts: web
+  become: yes
+  tasks: 
+  - name: install mysql, postfix and uninstall nginx
+    ansible.builtin.package:
+      name: "{{ item.name }}"
+      state: "{{ item.state }}"
+    loop:
+    - {name: 'mysql', state: 'present'}
+    - {name: 'nginx', state: 'absent'}
+    - {name: 'postfix', state: 'present'}
