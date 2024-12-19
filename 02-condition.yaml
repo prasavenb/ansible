@@ -1,0 +1,17 @@
+- name: create expense user by using ansible condition
+  hosts: web
+  become: yes
+  tasks:
+  - name: check expense user exits or not
+    ansible.builtin.command: id expense
+    # save the  above command output in a variable by using keyword register
+    register: USER
+    ignore_errors: true
+
+  - name: print the user info
+    ansible.builtin.debug:
+      msg: "user info {{ USER }}"
+    
+  - name: create expense user
+    ansible.builtin.command: useradd expense
+    when: USER.rc != 0
